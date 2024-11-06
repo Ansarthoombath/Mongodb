@@ -1,0 +1,12 @@
+db.students.find({'cgpa':{$gt:'8.0'}});
+db.students.find({'cgpa':{$gt:'8.0'}},{dept:'cse'});
+db.students.find({'cgpa':{$gt:'8.0'}},{'dept':'cse'});
+db.students.find({$and:[{'cgpa':{$gt:'8.0'}},{'dept':'cse'}]});
+db.students.find({$or:[{'cgpa':{$gt:'9.0'}},{'dept':'ece'}]});
+db.students.find({$or:[{'cgpa':{$gt:'9.0'}},{'dept':'ece'}]}).limit(1);
+db.students.find({$or:[{'cgpa':{$gt:'9.0'}},{'dept':'ece'}]}).skip(1);
+db.students.find().sort({name:1});
+db.students.find().sort({name:-1});
+db.students.find().sort({cgpa:1});
+db.students.find({cgpa:{$ne:'7.5'}});
+db.products.find({},{name:1});

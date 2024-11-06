@@ -1,0 +1,199 @@
+.employee.insertOne({name:'John',age:'25'});
+{
+  acknowledged: true,
+  insertedId: ObjectId('67285e7197ce53f52d94318f')
+}
+db.employee.insertOne({name:'Darwin',age:'30',phone:'978989898'});
+{
+  acknowledged: true,
+  insertedId: ObjectId('6728600d97ce53f52d943190')
+}
+db.employee.insertOne({name:'Darwin',age:'30',phone:'978989898'});
+{
+  acknowledged: true,
+  insertedId: ObjectId('672860ca97ce53f52d943191')
+}
+db.employee.insertMany({name:'Javed',age:'32',phone:'978989898'},{name:'ansar',age:'32',phone:'987698767'});
+MongoInvalidArgumentError: Argument "docs" must be an array of documents
+db.employee.insertMany[{name:'Javed',age:'32',phone:'978989898'},{name:'ansar',age:'32',phone:'987698767'}];
+db.employee.findOne();
+{
+  _id: ObjectId('67285e7197ce53f52d94318f'),
+  name: 'John',
+  age: '25'
+}
+db.employee.find();
+{
+  _id: ObjectId('67285e7197ce53f52d94318f'),
+  name: 'John',
+  age: '25'
+}
+{
+  _id: ObjectId('6728600d97ce53f52d943190'),
+  name: 'Darwin',
+  age: '30',
+  phone: '978989898'
+}
+{
+  _id: ObjectId('672860ca97ce53f52d943191'),
+  name: 'Darwin',
+  age: '30',
+  phone: '978989898'
+}
+db.employee.insertOne({name:'Dacood',age:'30',phone:'978989898',details:{dept:"sales",salary:"25000"}});
+{
+  acknowledged: true,
+  insertedId: ObjectId('672863cf97ce53f52d943192')
+}
+db.employee.find();
+{
+  _id: ObjectId('67285e7197ce53f52d94318f'),
+  name: 'John',
+  age: '25'
+}
+{
+  _id: ObjectId('6728600d97ce53f52d943190'),
+  name: 'Darwin',
+  age: '30',
+  phone: '978989898'
+}
+{
+  _id: ObjectId('672860ca97ce53f52d943191'),
+  name: 'Darwin',
+  age: '30',
+  phone: '978989898'
+}
+{
+  _id: ObjectId('672863cf97ce53f52d943192'),
+  name: 'Dacood',
+  age: '30',
+  phone: '978989898',
+  details: {
+    dept: 'sales',
+    salary: '25000'
+  }
+}
+db.employee.insertMany([{name:'Javed',age:'32',phone:'978989898'},{name:'ansar',age:'32',phone:'987698767'}]);
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('6728644297ce53f52d943193'),
+    '1': ObjectId('6728644297ce53f52d943194')
+  }
+}
+db.employee.find();
+{
+  _id: ObjectId('67285e7197ce53f52d94318f'),
+  name: 'John',
+  age: '25'
+}
+{
+  _id: ObjectId('6728600d97ce53f52d943190'),
+  name: 'Darwin',
+  age: '30',
+  phone: '978989898'
+}
+{
+  _id: ObjectId('672860ca97ce53f52d943191'),
+  name: 'Darwin',
+  age: '30',
+  phone: '978989898'
+}
+{
+  _id: ObjectId('672863cf97ce53f52d943192'),
+  name: 'Dacood',
+  age: '30',
+  phone: '978989898',
+  details: {
+    dept: 'sales',
+    salary: '25000'
+  }
+}
+{
+  _id: ObjectId('6728644297ce53f52d943193'),
+  name: 'Javed',
+  age: '32',
+  phone: '978989898'
+}
+{
+  _id: ObjectId('6728644297ce53f52d943194'),
+  name: 'ansar',
+  age: '32',
+  phone: '987698767'
+}
+db.employee.find({age:'30'});
+{
+  _id: ObjectId('6728600d97ce53f52d943190'),
+  name: 'Darwin',
+  age: '30',
+  phone: '978989898'
+}
+{
+  _id: ObjectId('672860ca97ce53f52d943191'),
+  name: 'Darwin',
+  age: '30',
+  phone: '978989898'
+}
+{
+  _id: ObjectId('672863cf97ce53f52d943192'),
+  name: 'Dacood',
+  age: '30',
+  phone: '978989898',
+  details: {
+    dept: 'sales',
+    salary: '25000'
+  }
+}
+db.employee.find({"details.dept":'sales'});
+{
+  _id: ObjectId('672863cf97ce53f52d943192'),
+  name: 'Dacood',
+  age: '30',
+  phone: '978989898',
+  details: {
+    dept: 'sales',
+    salary: '25000'
+  }
+}
+db.employee.find({age:{$gte:25,$lte:29}});
+db.employee.find({age:{$gte:24,$lte:29}});
+db.employee.find({age:{$gte:'24',$lte:'29'}});
+{
+  _id: ObjectId('67285e7197ce53f52d94318f'),
+  name: 'John',
+  age: '25'
+}
+db.employee.find({age:{$gte:'24',$lte:'30'}});
+{
+  _id: ObjectId('67285e7197ce53f52d94318f'),
+  name: 'John',
+  age: '25'
+}
+{
+  _id: ObjectId('6728600d97ce53f52d943190'),
+  name: 'Darwin',
+  age: '30',
+  phone: '978989898'
+}
+{
+  _id: ObjectId('672860ca97ce53f52d943191'),
+  name: 'Darwin',
+  age: '30',
+  phone: '978989898'
+}
+{
+  _id: ObjectId('672863cf97ce53f52d943192'),
+  name: 'Dacood',
+  age: '30',
+  phone: '978989898',
+  details: {
+    dept: 'sales',
+    salary: '25000'
+  }
+}
+db.employee.find({details.salary:{$gte:'21000',$lte:'36000'}});
+SyntaxError: Unexpected token, expected "," (1:25)
+
+> 1 | db.employee.find({details.salary:{$gte:'21000',$lte:'36000'}});
+    |                          ^
+db.employee.find({"details.salary":{$gte:'21000',$lte:'36000'}});

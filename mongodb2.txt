@@ -1,0 +1,14 @@
+use employee
+switched to db employee
+db.employee.find();
+db.employee.updateOne({name:'Dacood'},{$set:{'details.dept':'developer'}});
+db.employee.updateOne({name:'Dacood'},{$set:{'details.dept':'developer','details.salary':'34000'}});
+db.employee.updateOne({name:'Dacood'},{$set:{'details.dept':'web developer','details.salary':'34000'}
+db.employee.updateMany({name:'Dacood'},{$set:{'age':'21'}},{name:'Darwin'},{$set:{'age':'22'}});
+db.employee.updateMany({name:'Dacood',age:'21'},{$set:{'age':'25'}});
+db.employee.updateMany({age:'32'},{$set:{'place':'calicut'}});
+db.employee.insertMany([{name:'Bethel',age:'43',phone:'978989898',details:{desg:'tester',salary:'45000'}},{name:'Aron',age:'23',phone:'987698767',details:{desg:'developer',salary:'35000'}}]);
+
+db.employee.deleteMany({_id:'672860ca97ce53f52d943191'});
+
+db.createCollection('user',{});
