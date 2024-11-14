@@ -1,0 +1,305 @@
+CRUD Operations 
+
+1. Create Operation: 
+
+Q1: How do you insert a single document into a MongoDB collection named bank?
+
+use bank
+db.createCollection("bank"); 
+db.bank.insertOne({ accountNumber: 4567389, accountHolder: "John Doe", balance: 1000,branch: "main"});
+
+
+Q2: How do you insert multiple documents into the bank collection at once? 
+
+db.bank.insertMany([{accountNumber: 54329, accountHolder: "David", balance: 15000, branch: "uptown"},
+{ accountNumber: 12345, accountHolder: "Abraham", balance: 3400, branch: "downtown"},
+{ accountNumber: 54321,accountHolder: "Mary", balance: 55000,branch: "oldtown"},
+{accountNumber: 98765,accountHolder: "Michael",balance: 7200,branch: "downtown"}]);
+
+
+Q3: How do you insert a new document into the bank collection with fields such as 
+account_number, account_holder, balance, and branch? 
+
+db.bank.insertOne({accountNumber: 98765,accountHolder: "Sarah",balance: 15000,branch: "uptown"});
+
+
+2. Read Operation: 
+
+Q4: How do you retrieve all documents from the bank collection? 
+
+db.bank.find();
+{
+  _id: ObjectId('672f72edd5058dfb94044722'),
+  accountNumber: 4567389,
+  accountHolder: 'John Doe',
+  balance: 1000,
+  branch: 'main'
+}
+{
+  _id: ObjectId('672f7897d5058dfb94044723'),
+  accountNumber: 54329,
+  accountHolder: 'David',
+  balance: 15000,
+  branch: 'uptown'
+}
+{
+  _id: ObjectId('672f7897d5058dfb94044724'),
+  accountHolder: 'Abraham',
+  balance: 3400,
+  branch: 'downtown',
+  accountNumber: 12345
+}
+{
+  _id: ObjectId('672f7a1bd5058dfb94044725'),
+  accountNumber: 54321,
+  accountHolder: 'Mary',
+  balance: 55000,
+  branch: 'oldtown'
+}
+{
+  _id: ObjectId('672f82c1d5058dfb94044726'),
+  accountHolder: 'Michael',
+  balance: 7200,
+  branch: 'downtown',
+  accountNumber: 98765
+}
+{
+  _id: ObjectId('672f82c1d5058dfb94044727'),
+  accountNumber: 98765,
+  accountHolder: 'Sarah',
+  balance: 15000,
+  branch: 'uptown'
+}
+
+
+Q5: How do you find a document in the bank collection where the account_holder is 
+"John Doe"? 
+
+db.bank.find({accountHolder:'John Doe'});
+{
+  _id: ObjectId('672f72edd5058dfb94044722'),
+  accountNumber: 4567389,
+  accountHolder: 'John Doe',
+  balance: 1000,
+  branch: 'main'
+}
+
+
+Q6: How do you find all documents in the bank collection where the balance is greater 
+than $10,000? 
+
+db.bank.find({balance:{$gt:10000}});
+{
+  _id: ObjectId('672f7897d5058dfb94044723'),
+  accountNumber: 54329,
+  accountHolder: 'David',
+  balance: 15000,
+  branch: 'uptown'
+}
+{
+  _id: ObjectId('672f7a1bd5058dfb94044725'),
+  accountNumber: 54321,
+  accountHolder: 'Mary',
+  balance: 55000,
+  branch: 'oldtown'
+}
+{
+  _id: ObjectId('672f82c1d5058dfb94044727'),
+  accountNumber: 98765,
+  accountHolder: 'Sarah',
+  balance: 15000,
+  branch: 'uptown'
+}
+
+
+Q7: How do you retrieve the first 5 documents from the bank collection? 
+
+db.bank.find().limit(5);
+{
+  _id: ObjectId('672f72edd5058dfb94044722'),
+  accountNumber: 4567389,
+  accountHolder: 'John Doe',
+  balance: 1000,
+  branch: 'main'
+}
+{
+  _id: ObjectId('672f7897d5058dfb94044723'),
+  accountNumber: 54329,
+  accountHolder: 'David',
+  balance: 15000,
+  branch: 'uptown'
+}
+
+{
+  _id: ObjectId('672f7897d5058dfb94044724'),
+  accountHolder: 'Abraham',
+  balance: 3400,
+  branch: 'downtown',
+  accountNumber: 12345
+}
+{
+  _id: ObjectId('672f7a1bd5058dfb94044725'),
+  accountNumber: 54321,
+  accountHolder: 'Mary',
+  balance: 55000,
+  branch: 'oldtown'
+}
+{
+  _id: ObjectId('672f82c1d5058dfb94044726'),
+  accountHolder: 'Michael',
+  balance: 7200,
+  branch: 'downtown',
+  accountNumber: 98765
+}
+
+
+Q8: How do you find all accounts in the bank collection that belong to the "Downtown" 
+branch? 
+
+db.bank.find({branch:'downtown'});
+{
+  _id: ObjectId('672f7897d5058dfb94044724'),
+  accountHolder: 'Abraham',
+  balance: 3400,
+  branch: 'downtown',
+  accountNumber: 12345
+}
+{
+  _id: ObjectId('672f82c1d5058dfb94044726'),
+  accountHolder: 'Michael',
+  balance: 7200,
+  branch: 'downtown',
+  accountNumber: 98765
+}
+
+
+3. Update Operation: 
+
+
+Q9: How do you update the balance of the account where the account_number is 
+12345 to $15,000?
+
+
+db.bank.updateOne({accountNumber:12345},{$set:{balance:15000}});
+db.bank.find({accountNumber: 12345});
+{
+  _id: ObjectId('672f7897d5058dfb94044724'),
+  accountHolder: 'Abraham',
+  balance: 15000,
+  branch: 'downtown',
+  accountNumber: 12345
+}
+
+ 
+
+Q10: How do you add a new field account_type with the value "Savings" to all 
+accounts in the bank collection? 
+
+
+db.bank.updateMany({}, { $set: { account_type: "Savings" } });
+
+
+Q11: How do you increase the balance of all accounts in the "Uptown" branch by $500? 
+
+db.bank.updateMany({ branch:"uptown"},{$inc:{balance:500}});
+
+
+
+Q12: How do you update multiple documents in the bank collection to set the branch to 
+"Main" for accounts with a balance greater than $50,000? 
+
+db.bank.updateMany({ balance:{$gt:50000}},{$set:{branch:'main'}});
+
+4. Delete Operation: 
+
+
+Q13: How do you delete a document from the bank collection where the 
+account_number is 54321? 
+
+db.bank.deleteOne({accountNumber:54321});
+
+
+Q14: How do you delete all documents in the bank collection where the branch is "Old 
+Town"? 
+
+db.bank.deleteMany({branch:'oldtown'});
+
+
+Q15: How do you remove a field last_transaction_date from all documents in the 
+bank collection? 
+
+db.bank.updateMany({},{ $set: {lastTransactiondate:'28/06/2024'}});
+db.bank.updateMany({},{$unset:{lastTransactiondate:"28/06/2024"}});
+
+Filters and Projections 
+
+
+5. Basic Projection: 
+
+
+Q16: How do you retrieve only the account_holder and balance fields from all 
+documents in the bank collection? 
+
+db.bank.find({},{ accountHolder:1,balance:1, _id:0});
+{
+  accountHolder: 'John Doe',
+  balance: 1000
+}
+{
+  accountHolder: 'David',
+  balance: 15500
+}
+{
+  accountHolder: 'Abraham',
+  balance: 15000
+}
+{
+  accountHolder: 'Michael',
+  balance: 7200
+}
+{
+  accountHolder: 'Sarah',
+  balance: 15500
+}
+
+
+
+Q17: How do you exclude the _id field from the results while retrieving the
+
+db.bank.find({},{_id:0});
+
+{
+  accountNumber: 4567389,
+  accountHolder: 'John Doe',
+  balance: 1000,
+  branch: 'main',
+  account_type: 'Savings'
+}
+{
+  accountNumber: 54329,
+  accountHolder: 'David',
+  balance: 15500,
+  branch: 'uptown',
+  account_type: 'Savings'
+}
+{
+  accountHolder: 'Abraham',
+  balance: 15000,
+  branch: 'downtown',
+  accountNumber: 12345,
+  account_type: 'Savings'
+}
+{
+  accountHolder: 'Michael',
+  balance: 7200,
+  branch: 'downtown',
+  accountNumber: 98765,
+  account_type: 'Savings'
+}
+{
+  accountNumber: 98765,
+  accountHolder: 'Sarah',
+  balance: 15500,
+  branch: 'uptown',
+  account_type: 'Savings'
+}

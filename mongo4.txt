@@ -1,0 +1,76 @@
+db.salary.aggregate([
+    {
+        $lookup: {
+            from: "employee",           // Name of the collection to join with
+            localField: "employee_id",   // Field from the salary collection
+            foreignField: "_id",         // Field from the employee collection
+            as: "employee_info"          // Alias for the joined data
+        }
+    }
+])
+
+
+
+db.students.find();
+
+db.students.aggregate([{$group:{_id:"$cgpa",count:{$sum:1}}}]);
+
+db.students.aggregate([{$match:{'cgpa':{$gt:'8.0'}}}]);
+
+db.employees.insertOne({_id:'emp002',name:'mathew',salary:'25000'});
+
+db.employees.insertOne({_id:'emp003',name:'Thomas',salary:'35000'});
+
+db.employees.insertOne({_id:'emp004',name:'james',salary:'25000'});
+
+db.salary.insertOne({"empId":'emp002','monthly_salary':'50000'});
+
+db.salary.insertOne({"empId":'emp003','monthly_salary':'35000'});
+
+db.salary.insertOne({"empId":'emp004','monthly_salary':'36000'});
+
+db.employees.aggregate([{"$lookup":
+{ "from":"salary",
+'localField':'_id',
+'foreignField':'empId',
+'as':'salary_details'}}]);
+{
+  _id: 'emp002',
+  name: 'mathew',
+  salary: '25000',
+  salary_details: [
+    {
+      _id: ObjectId('672c5873d09898ef00c0d989'),
+      empId: 'emp002',
+      monthly_salary: '50000'
+    }
+  ]
+}
+{
+  _id: 'emp003',
+  name: 'Thomas',
+  salary: '35000',
+  salary_details: [
+    {
+      _id: ObjectId('672c5889d09898ef00c0d98a'),
+      empId: 'emp003',
+      monthly_salary: '35000'
+    }
+  ]
+}
+{
+  _id: 'emp004',
+  name: 'james',
+  salary: '25000',
+  salary_details: [
+    {
+      _id: ObjectId('672c5898d09898ef00c0d98b'),
+      empId: 'emp004',
+      monthly_salary: '36000'
+    }
+  ]
+}
+db.students.createIndex({name:1});
+db.students.getIndexes();
+
+
